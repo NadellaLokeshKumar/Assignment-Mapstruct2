@@ -26,28 +26,31 @@ public class LocationServiceImpl implements LocationService {
 
 	@Override
 	public int save(LocationDTO locationDTO) {
+		logger.debug("save method started");
 		int locationId = locationRepo.save(locationMapper.locationDTOToLocation(locationDTO)).getLocationId();
-		logger.debug(locationId);
+		logger.debug("save method ended");
 		return locationId;
 	}
 
 	@Override
 	public LocationDTO retreiveLocationDTO(int locationId) {
+		logger.debug("retreiveLocationDTO method started");
 		LocationDTO locationDTO = locationMapper.locationToLocationDTO(locationRepo.getOne(locationId));
 		logger.debug(locationDTO);
+		logger.debug("retreiveLocationDTO method ended");
 		return locationDTO;
 	}
 
 	@Override
 	public List<LocationDTO> retreiveAllLocationDTO() {
+		logger.debug("retreiveAllLocationDTO method started");
 		List<Location> locationList = locationRepo.findAll();
-		logger.debug(locationList);
 		ArrayList<LocationDTO> LocationDTOList = new ArrayList<LocationDTO>();
 		Iterator itr = locationList.iterator();
 		while (itr.hasNext()) {
 			LocationDTO locationDTO = locationMapper.locationToLocationDTO((Location) itr.next());
-			logger.debug(LocationDTOList.add(locationDTO));
 		}
+		logger.debug("retreiveAllLocationDTO method ended");
 		return LocationDTOList;
 	}
 }

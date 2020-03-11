@@ -26,28 +26,30 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public int save(VehicleDTO vehilce) {
+		logger.debug("save method started");
 		int vehicleId = vehicleRepo.save(vehicleMapper.vehicleDTOToVehicle(vehilce)).getVehicleId();
-		logger.debug(vehicleId);
+		logger.debug("save method ended");
 		return vehicleId;
 	}
 
 	@Override
 	public VehicleDTO retreiveVehcileDTO(int vehicleID) {
+		logger.debug("retreiveVehcileDTO method started");
 		VehicleDTO vehicleDTO = vehicleMapper.vehicleToVehicleDTO(vehicleRepo.getOne(vehicleID));
-		logger.debug(vehicleDTO);
+		logger.debug("retreiveVehcileDTO method ended");
 		return vehicleDTO;
 	}
 
 	@Override
 	public List<VehicleDTO> retreiveAllVehicleDTO() {
+		logger.debug("retreiveAllVehicleDTO method started");
 		List<Vehicle> vehicleList = vehicleRepo.findAll();
-		logger.debug(vehicleList);
 		ArrayList<VehicleDTO> vehicleDTOList = new ArrayList<VehicleDTO>();
 		Iterator itr = vehicleList.iterator();
 		while (itr.hasNext()) {
 			VehicleDTO vehicleDTO = vehicleMapper.vehicleToVehicleDTO((Vehicle) itr.next());
-			logger.debug(vehicleDTOList.add(vehicleDTO));
 		}
+		logger.debug("retreiveAllVehicleDTO method ended");
 		return vehicleDTOList;
 	}
 
